@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2700d",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221910",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0rem", "lg": "0rem", "xl": "0rem", "full": "9999px"},
+                },
+            },
+        }</script>
+<style>
+        .neo-brutalist-shadow {
+            box-shadow: 8px 8px 0px 0px #000;
+        }
+        .neo-brutalist-border {
+            border: 4px solid #000;
+        }
+        .dark .neo-brutalist-shadow {
+            box-shadow: 8px 8px 0px 0px #f2700d;
+        }
+        .dark .neo-brutalist-border {
+            border: 4px solid #f2700d;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b-4 border-black bg-background-light dark:bg-background-dark px-6 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 neo-brutalist-border">
+<span class="material-symbols-outlined text-black font-bold">precision_manufacturing</span>
+</div>
+<h1 class="text-2xl font-black uppercase tracking-tighter">Robotics.OS</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-bold uppercase hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="font-bold uppercase hover:text-primary transition-colors" href="project.html">Projects</a>
+<a class="font-bold uppercase hover:text-primary transition-colors" href="the-lab.html">Lab</a>
+<a class="font-bold uppercase hover:text-primary transition-colors" href="philosophy.html">Philosophy</a>
+<button class="bg-primary text-black font-black uppercase px-6 py-2 neo-brutalist-border neo-brutalist-shadow active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                        Hire Me
+                    </button>
+</nav>
+</div>
+</header>
+<main class="flex-grow max-w-7xl mx-auto w-full px-6 py-12">
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+<div class="lg:col-span-7 flex flex-col justify-center">
+<div class="inline-block bg-primary text-black font-black uppercase px-4 py-1 mb-4 w-fit">
+                        Project Case Study
+                    </div>
+<h2 class="text-6xl md:text-8xl font-black uppercase leading-[0.9] tracking-tighter mb-6">
+                        Autonomous <br/><span class="text-primary">Wall Avoiding</span> Robot
+                    </h2>
+<p class="text-xl font-medium max-w-xl border-l-8 border-primary pl-6 py-2">
+                        Navigating complexity with ROS 2 Jazzy and Gazebo Harmonic simulation environments.
+                    </p>
+</div>
+<div class="lg:col-span-5">
+<div class="neo-brutalist-border neo-brutalist-shadow h-full aspect-square bg-slate-800 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent z-10"></div>
+<img alt="Robotic simulation visualization" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="A 3D render of a futuristic robot in a dark simulation environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh6OP7aofLcRekfJ3lobh4ILvhtSoF3UL-YKjZ-Cy7sLEzW6MepgKlatfNuNmln2nKWb84BC7rRKQTODq7GOc4tEsjaTr64_omzr1mjD84K70cvTao9eOT0Y7s3H5JEHsrRBA8f5Vr0oFWBuZm-VE3OJ5oWFoeRZVFbWzOUegqGf0HmHFwOPvnDKW5hL_yFBILO-92lLUupjNovzgqTk9RtaxU-Hg7AXwPEmeKMGKm5tof1Gvr-7jrsduIc5VTqF2u6RIPTeI-v_Cc"/>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+<div class="neo-brutalist-border p-8 bg-white dark:bg-slate-900">
+<span class="material-symbols-outlined text-4xl mb-4 text-primary">report_problem</span>
+<h3 class="text-2xl font-black uppercase mb-4">Problem</h3>
+<p class="font-medium text-slate-700 dark:text-slate-300 italic">
+                        "Robots need reliable obstacle avoidance to navigate safely."
+                    </p>
+</div>
+<div class="md:col-span-2 neo-brutalist-border p-8 bg-primary text-black">
+<span class="material-symbols-outlined text-4xl mb-4">architecture</span>
+<h3 class="text-2xl font-black uppercase mb-4">Approach</h3>
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-bold">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span> Integrated ROS 2 Jazzy</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span> Gazebo Harmonic</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span> LiDAR-based sensing</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span> Obstacle detection logic</li>
+</ul>
+</div>
+</section>
+<section class="mb-20">
+<h3 class="text-4xl font-black uppercase mb-8 flex items-center gap-4">
+                    Tech Stack <span class="h-1 flex-grow bg-black dark:bg-primary"></span>
+</h3>
+<div class="flex flex-wrap gap-6">
+<div class="neo-brutalist-border px-8 py-4 bg-white dark:bg-slate-800 neo-brutalist-shadow text-xl font-black uppercase">ROS 2</div>
+<div class="neo-brutalist-border px-8 py-4 bg-white dark:bg-slate-800 neo-brutalist-shadow text-xl font-black uppercase">Gazebo</div>
+<div class="neo-brutalist-border px-8 py-4 bg-white dark:bg-slate-800 neo-brutalist-shadow text-xl font-black uppercase">Python</div>
+<div class="neo-brutalist-border px-8 py-4 bg-white dark:bg-slate-800 neo-brutalist-shadow text-xl font-black uppercase">Linux</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+<div class="order-2 lg:order-1">
+<div class="neo-brutalist-border bg-slate-200 dark:bg-slate-800 p-2 neo-brutalist-shadow">
+<img alt="Simulation outcome chart" class="w-full grayscale border-2 border-black dark:border-primary" data-alt="A computer screen showing complex robot navigation paths and sensor data" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlZpSt_lHEAbc8q2s1IROdBRPvOZuELQBZOxtniB-FEiR63GkkXvczzZJFbxLprcL67TaipGHAfJD5susMZ7NAUiOi88GvzWec6jtCJgcyPyd_6vLbHezA2XLTVj8b99t67KCFGdsarRXgNBuWzcSG-cg7R6LrSKOLSABTNMo2u-2-jX2P20vl1XbpSRZHr3h02L3e7I2Sd5rZdoBx_mDDpaw2WbtK8XonHqmQlIWBMl0sUrs4mELyWwTGrGRrmx0TL5IhyxTarXhK"/>
+</div>
+</div>
+<div class="order-1 lg:order-2 flex flex-col justify-center">
+<h3 class="text-4xl font-black uppercase mb-6">Outcome</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="bg-primary h-12 w-12 shrink-0 flex items-center justify-center neo-brutalist-border">
+<span class="material-symbols-outlined text-black font-black">done_all</span>
+</div>
+<div>
+<h4 class="text-xl font-bold uppercase">Mission Success</h4>
+<p class="text-slate-600 dark:text-slate-400">Robot successfully navigates simulated environments. Avoids obstacles autonomously without human intervention.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="bg-primary h-12 w-12 shrink-0 flex items-center justify-center neo-brutalist-border">
+<span class="material-symbols-outlined text-black font-black">psychology</span>
+</div>
+<div>
+<h4 class="text-xl font-bold uppercase">What I Learned</h4>
+<p class="text-slate-600 dark:text-slate-400">Deep dive into robotics simulation pipelines, ROS node communication, and sensor-based navigation algorithms.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="neo-brutalist-border bg-black text-white dark:bg-primary dark:text-black p-12 text-center">
+<h3 class="text-5xl font-black uppercase mb-6 tracking-tight">Ready to build the future?</h3>
+<p class="text-xl font-bold mb-8 opacity-80 uppercase tracking-widest">Available for robotics and embedded systems projects.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<button class="bg-primary text-black dark:bg-black dark:text-primary font-black uppercase px-10 py-4 neo-brutalist-border hover:translate-x-1 hover:translate-y-1 transition-all">
+                        View Project Source
+                    </button>
+<button class="bg-white text-black font-black uppercase px-10 py-4 neo-brutalist-border hover:translate-x-1 hover:translate-y-1 transition-all">
+                        Contact Me
+                    </button>
+</div>
+</section>
+</main>
+<footer class="border-t-4 border-black py-12 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined font-black">terminal</span>
+<span class="font-black uppercase tracking-tighter text-xl">Robotics.OS // 2024</span>
+</div>
+<div class="flex gap-6">
+<a class="font-black uppercase hover:text-primary underline decoration-4 underline-offset-4" href="#">GitHub</a>
+<a class="font-black uppercase hover:text-primary underline decoration-4 underline-offset-4" href="#">LinkedIn</a>
+<a class="font-black uppercase hover:text-primary underline decoration-4 underline-offset-4" href="#">Twitter</a>
+</div>
+<div class="text-right">
+<p class="font-black uppercase text-sm tracking-widest opacity-60">Hand-coded in the lab</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
