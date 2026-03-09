@@ -12,9 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
   /* Spline Skill: Prevent scroll hijacking */
-  body {
-    overflow: auto !important;
-  }
+  body { overflow: auto !important; }
 </style>
 <script id="tailwind-config">tailwind.config = {
             darkMode: "class",
@@ -105,24 +103,23 @@
       <div id="spline-fallback" style="position: absolute; inset: 0; background: #0d0d0d; display: flex; align-items: center; justify-content: center; z-index: 0;">
         <div class="flex flex-col items-center gap-4">
           <span class="material-symbols-outlined text-primary text-5xl animate-pulse">robot_2</span>
-          <span class="text-primary text-[10px] font-black uppercase tracking-[3px] opacity-60">Loading Robot Arm...</span>
+          <span class="text-primary text-[10px] font-black uppercase tracking-[3px] opacity-60">Initializing...</span>
         </div>
       </div>
 
-      <canvas id="canvas3d" style="width: 100%; height: 100%; position: relative; z-index: 1; opacity: 0; transition: opacity 0.8s ease;"></canvas>
+      <canvas id="canvas3d" style="width: 100%; height: 100%; position: relative; z-index: 1; opacity: 1;"></canvas>
     </div>
   </div>
 </div>
 
 <script type="module">
-  // Spline Skill Method B: Direct URL import for runtime
-  import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.48/build/runtime.module.js';
+  // Optimized CDN for ES modules (Fixes common CORS issues)
+  import { Application } from 'https://esm.sh/@splinetool/runtime@1.9.48';
 
   const canvas = document.getElementById('canvas3d');
   const fallback = document.getElementById('spline-fallback');
   const box = document.getElementById('spline-hero-box');
 
-  // Robust sizing logic (Spline Skill: Common Problems #5)
   function resize() {
     if (!canvas || !box) return;
     const { width, height } = box.getBoundingClientRect();
@@ -131,20 +128,23 @@
     canvas.height = height * dpr;
   }
 
+  window.addEventListener('resize', resize);
   const ro = new ResizeObserver(resize);
   if (box) ro.observe(box);
 
-  // Initialize Application exactly as requested by user
   const app = new Application(canvas);
 
+  console.log('Spline: Initiating load...');
+  
   app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
     .then(() => {
+      console.log('Spline: Load successful');
       resize();
-      canvas.style.opacity = '1';
       if (fallback) fallback.style.display = 'none';
+      canvas.style.opacity = '1';
     })
     .catch(err => {
-      console.error('Spline Load Error:', err);
+      console.error('Spline: Load failed', err);
       // Fallback remains visible
     });
 
