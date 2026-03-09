@@ -4,21 +4,14 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Deep Project - Autonomous Robot</title>
-<!-- Preload Spline Scene for faster load (recommended by Spline Skill) -->
+<!-- Spline Skill: Preload scene for performance -->
 <link rel="preload" href="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" as="fetch" crossorigin>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script type="importmap">
-{
-  "imports": {
-    "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@1.9.48/build/runtime.module.js"
-  }
-}
-</script>
 <style>
-  /* Critical Scroll Fix (Spline Skill: Common Problems #1) */
+  /* Spline Skill: Prevent scroll hijacking */
   body {
     overflow: auto !important;
   }
@@ -122,13 +115,14 @@
 </div>
 
 <script type="module">
-  import { Application } from '@splinetool/runtime';
+  // Spline Skill Method B: Direct URL import for runtime
+  import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.48/build/runtime.module.js';
 
   const canvas = document.getElementById('canvas3d');
   const fallback = document.getElementById('spline-fallback');
   const box = document.getElementById('spline-hero-box');
 
-  // 1. Robust sizing logic (Spline Skill: Common Problems #5)
+  // Robust sizing logic (Spline Skill: Common Problems #5)
   function resize() {
     if (!canvas || !box) return;
     const { width, height } = box.getBoundingClientRect();
@@ -137,36 +131,23 @@
     canvas.height = height * dpr;
   }
 
-  // Use ResizeObserver for more table resizing
   const ro = new ResizeObserver(resize);
   if (box) ro.observe(box);
 
-  // 2. Initialize Application
+  // Initialize Application exactly as requested by user
   const app = new Application(canvas);
 
-  // 3. Timeout fallback (Spline Skill: Common Problems #3)
-  const loadTimeout = setTimeout(() => {
-    console.warn('Spline load timed out');
-    // We keep the fallback visible
-  }, 10000);
-
-  // 4. Load scene
   app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
     .then(() => {
-      clearTimeout(loadTimeout);
       resize();
-      // Smoothly reveal the canvas and hide fallback
       canvas.style.opacity = '1';
-      setTimeout(() => {
-        if (fallback) fallback.style.display = 'none';
-      }, 800);
+      if (fallback) fallback.style.display = 'none';
     })
     .catch(err => {
       console.error('Spline Load Error:', err);
       // Fallback remains visible
     });
 
-  // Initial resize call
   resize();
 </script>
 </section>
