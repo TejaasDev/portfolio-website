@@ -7,6 +7,7 @@
 <!-- Spline Skill: Preload scene for performance -->
 <link rel="preload" href="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" as="fetch" crossorigin>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -98,57 +99,26 @@
 <div class="lg:col-span-6 mt-24 lg:mt-48">
   <div class="spline-hero-wrapper">
     <div id="spline-hero-box" style="position: relative; width: 100%; height: 560px; background: transparent; contain: strict;">
-      
-      <!-- Fallback shown if Spline fails (Spline Skill: Common Problems #3) -->
-      <div id="spline-fallback" style="position: absolute; inset: 0; background: #0d0d0d; display: flex; align-items: center; justify-content: center; z-index: 0;">
-        <div class="flex flex-col items-center gap-4">
-          <span class="material-symbols-outlined text-primary text-5xl animate-pulse">robot_2</span>
-          <span class="text-primary text-[10px] font-black uppercase tracking-[3px] opacity-60">Initializing...</span>
-        </div>
-      </div>
-
-      <canvas id="canvas3d" style="width: 100%; height: 100%; position: relative; z-index: 1; opacity: 1;"></canvas>
+      <spline-viewer url="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" style="width: 100%; height: 100%;"></spline-viewer>
     </div>
   </div>
 </div>
 
-<script type="module">
-  // Optimized CDN for ES modules (Fixes common CORS issues)
-  import { Application } from 'https://esm.sh/@splinetool/runtime@1.9.48';
-
-  const canvas = document.getElementById('canvas3d');
-  const fallback = document.getElementById('spline-fallback');
-  const box = document.getElementById('spline-hero-box');
-
-  function resize() {
-    if (!canvas || !box) return;
-    const { width, height } = box.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-  }
-
-  window.addEventListener('resize', resize);
-  const ro = new ResizeObserver(resize);
-  if (box) ro.observe(box);
-
-  const app = new Application(canvas);
-
-  console.log('Spline: Initiating load...');
-  
-  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
-    .then(() => {
-      console.log('Spline: Load successful');
-      resize();
-      if (fallback) fallback.style.display = 'none';
-      canvas.style.opacity = '1';
-    })
-    .catch(err => {
-      console.error('Spline: Load failed', err);
-      // Fallback remains visible
-    });
-
-  resize();
+<!-- Spline Skill: Navigation fallback -->
+<script>
+  // Monitor the viewer and hide it if there's a serious initialization error
+  window.addEventListener('load', () => {
+    const viewer = document.querySelector('spline-viewer');
+    if (!viewer) return;
+    
+    // Smooth reveal handle
+    viewer.style.opacity = '0';
+    viewer.style.transition = 'opacity 1s ease';
+    
+    setTimeout(() => {
+      viewer.style.opacity = '1';
+    }, 500);
+  });
 </script>
 </section>
 <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
