@@ -7,6 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script type="importmap">
+{
+  "imports": {
+    "@splinetool/runtime": "https://unpkg.com/@splinetool/runtime@1.9.48/build/runtime.module.js"
+  }
+}
+</script>
 <script id="tailwind-config">tailwind.config = {
             darkMode: "class",
             theme: {
@@ -90,83 +97,27 @@
 </div>
 <div class="lg:col-span-6 mt-24 lg:mt-48">
   <div class="spline-hero-wrapper">
-    <div id="spline-hero-box" class="relative w-full h-[560px]">
-
-      <!-- Loading state -->
-      <div id="spline-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0d0d0d] z-10 transition-opacity duration-500">
-        <span class="material-symbols-outlined text-primary text-5xl animate-pulse">robot_2</span>
-        <span class="text-primary text-[10px] font-black uppercase tracking-[3px] opacity-60">Initializing 3D Scene</span>
-      </div>
-
-      <!-- Spline renders here -->
-      <canvas id="canvas3d" class="w-full h-full opacity-0 transition-opacity duration-1000"></canvas>
-      
-      <!-- Fallback if load fails -->
-      <div id="spline-fallback" class="hidden absolute inset-0 flex-col items-center justify-center gap-4 bg-[#0d0d0d] z-0">
-        <span class="material-symbols-outlined text-primary text-6xl">error</span>
-        <span class="text-primary text-xs font-black uppercase tracking-widest">Failed to load asset</span>
-      </div>
-
+    <div id="spline-hero-box" style="position: relative; width: 100%; height: 560px; background: #0d0d0d;">
+      <canvas id="canvas3d" style="width: 100%; height: 100%;"></canvas>
     </div>
   </div>
 </div>
 
 <script type="module">
-  import { Application } from 'https://unpkg.com/@splinetool/runtime@latest/build/runtime.module.js';
+  import { Application } from '@splinetool/runtime';
 
-  const box = document.getElementById('spline-hero-box');
   const canvas = document.getElementById('canvas3d');
-  const loader = document.getElementById('spline-loading');
-  const fallback = document.getElementById('spline-fallback');
-
-  /**
-   * Syncs the internal drawing buffer of the canvas with its CSS display size.
-   * This is CRITICAL for Spline to render correctly and fill its container.
-   */
-  function syncCanvasSize() {
-    if (!canvas || !box) return;
-    const { width, height } = box.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR for performance
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-  }
-
-  // Initialize Spline Application
-  const app = new Application(canvas);
   
-  // Fail-safe timeout (15s)
-  const timeout = setTimeout(() => {
-    loader.classList.add('hidden');
-    fallback.classList.remove('hidden');
-    fallback.classList.add('flex');
-  }, 15000);
+  // Ensure the canvas attributes match its CSS size before Spline loads
+  function resize() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
-  // Robust sizing using ResizeObserver
-  const ro = new ResizeObserver(() => syncCanvasSize());
-  ro.observe(box);
-
-  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
-    .then(() => {
-      clearTimeout(timeout);
-      syncCanvasSize();
-      
-      // Smooth transition - reveal canvas when ready
-      setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.classList.add('hidden'), 500);
-        canvas.style.opacity = '1';
-      }, 500);
-    })
-    .catch(err => {
-      console.error('Spline Runtime Error:', err);
-      clearTimeout(timeout);
-      loader.classList.add('hidden');
-      fallback.classList.remove('hidden');
-      fallback.classList.add('flex');
-    });
-
-  // Initial sync
-  syncCanvasSize();
+  const app = new Application(canvas);
+  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode');
 </script>
 </section>
 <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
