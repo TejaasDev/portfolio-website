@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
 <script id="tailwind-config">tailwind.config = {
             darkMode: "class",
             theme: {
@@ -47,61 +48,6 @@
             background: #0d0d0d;
             overflow: hidden;
         }
-        #canvas3d {
-            display: block;
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.9s ease;
-        }
-        #canvas3d.loaded {
-            opacity: 1;
-        }
-
-        /* Loading shimmer shown while scene fetches */
-        #spline-loading {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            background: linear-gradient(135deg, #0d0d0d 0%, #1a0d05 100%);
-            z-index: 5;
-            transition: opacity 0.6s ease;
-        }
-        #spline-loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .shimmer-bar {
-            width: 140px;
-            height: 4px;
-            background: linear-gradient(90deg, #1a1a1a 25%, #f2700d 50%, #1a1a1a 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.4s infinite;
-        }
-        @keyframes shimmer {
-            0%   { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Fallback */
-        #spline-fallback {
-            position: absolute;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 12px;
-            color: #f2700d;
-            background: linear-gradient(135deg, #0d0d0d, #1a0d05);
-            z-index: 5;
-        }
 
         /* Orange glow pulse border */
         .spline-hero-wrapper {
@@ -119,34 +65,6 @@
         @keyframes glowPulse {
             0%, 100% { box-shadow: 0 0 0 4px #000, 0 0 30px 0px rgba(242,112,13,0.25); }
             50%       { box-shadow: 0 0 0 4px #000, 0 0 55px 5px rgba(242,112,13,0.55); }
-        }
-
-        /* Interactive badge */
-        #interact-badge {
-            position: absolute;
-            bottom: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(242,112,13,0.12);
-            border: 1.5px solid #f2700d;
-            color: #f2700d;
-            font-family: 'Work Sans', sans-serif;
-            font-weight: 900;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 5px 14px;
-            z-index: 20;
-            backdrop-filter: blur(6px);
-            animation: badgePulse 2.5s ease-in-out infinite;
-            pointer-events: none;
-            white-space: nowrap;
-            transition: opacity 0.5s ease;
-        }
-        #interact-badge.hidden { opacity: 0; pointer-events: none; }
-        @keyframes badgePulse {
-            0%, 100% { opacity: 0.6; }
-            50%       { opacity: 1; }
         }
     </style>
 </head>
@@ -188,79 +106,12 @@
   <div class="spline-hero-wrapper">
     <div class="neo-brutalist-border" id="spline-hero-box">
 
-      <!-- Loading shimmer (visible while scene fetches) -->
-      <div id="spline-loading">
-        <span class="material-symbols-outlined" style="font-size:48px; color:#f2700d; animation: badgePulse 2s ease-in-out infinite;">robot_2</span>
-        <div class="shimmer-bar"></div>
-        <span style="font-family:'Work Sans',sans-serif; font-weight:900; font-size:11px; text-transform:uppercase; letter-spacing:3px; color:#f2700d; opacity:0.6;">Loading 3D Scene…</span>
-      </div>
-
       <!-- Spline renders here -->
-      <canvas id="canvas3d"></canvas>
-
-      <!-- Fallback if load fails -->
-      <div id="spline-fallback">
-        <span class="material-symbols-outlined" style="font-size:64px;">robot_2</span>
-        <span style="font-family:'Work Sans',sans-serif; font-weight:900; font-size:13px; text-transform:uppercase; letter-spacing:3px; opacity:0.7;">Robot Arm</span>
-      </div>
-
-      <!-- Interactive badge -->
-      <div id="interact-badge">⬛ Move cursor — it's interactive</div>
+      <spline-viewer url="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" events-target="global"></spline-viewer>
 
     </div>
   </div>
 </div>
-
-<script type="module">
-  import { Application } from 'https://unpkg.com/@splinetool/runtime@1.9.48/build/runtime.module.js';
-
-  const SCENE_URL = 'https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode';
-
-  const box      = document.getElementById('spline-hero-box');
-  const canvas   = document.getElementById('canvas3d');
-  const loading  = document.getElementById('spline-loading');
-  const fallback = document.getElementById('spline-fallback');
-  const badge    = document.getElementById('interact-badge');
-
-  // Size the canvas pixel buffer to match the container exactly
-  function syncCanvasSize() {
-    const w = box.offsetWidth;
-    const h = box.offsetHeight || 560;
-    canvas.width  = w;
-    canvas.height = h;
-  }
-
-  // Watch container for size changes (handles initial render + responsive)
-  const ro = new ResizeObserver(() => syncCanvasSize());
-  ro.observe(box);
-  syncCanvasSize();
-
-  // Init Spline
-  const app = new Application(canvas);
-
-  const failTimer = setTimeout(() => {
-    loading.classList.add('hidden');
-    fallback.style.display = 'flex';
-    badge.classList.add('hidden');
-  }, 12000);
-
-  app.load(SCENE_URL)
-    .then(() => {
-      clearTimeout(failTimer);
-      // Hide loader, reveal canvas
-      loading.classList.add('hidden');
-      canvas.classList.add('loaded');
-      // Auto-hide badge after 4s
-      setTimeout(() => badge.classList.add('hidden'), 4000);
-    })
-    .catch((err) => {
-      clearTimeout(failTimer);
-      console.error('Spline failed:', err);
-      loading.classList.add('hidden');
-      fallback.style.display = 'flex';
-      badge.classList.add('hidden');
-    });
-</script>
 </section>
 <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
 <div class="neo-brutalist-border p-8 bg-white dark:bg-slate-900">
