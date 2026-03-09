@@ -76,7 +76,7 @@
 </div>
 </header>
 <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-12">
-<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 items-center">
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-20 items-center">
 <div class="lg:col-span-6 flex flex-col justify-center">
 <div class="inline-block bg-primary text-black font-black uppercase px-4 py-1 mb-4 w-fit">
                         Project Case Study
@@ -90,7 +90,7 @@
 </div>
 <div class="lg:col-span-6 mt-24 lg:mt-48">
   <div class="spline-hero-wrapper">
-    <div id="spline-hero-box">
+    <div id="spline-hero-box" class="relative w-full h-[560px]">
 
       <!-- Loading state -->
       <div id="spline-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0d0d0d] z-10 transition-opacity duration-500">
@@ -121,13 +121,14 @@
 
   /**
    * Syncs the internal drawing buffer of the canvas with its CSS display size.
-   * This is CRITICAL for Spline to render correctly.
+   * This is CRITICAL for Spline to render correctly and fill its container.
    */
   function syncCanvasSize() {
     if (!canvas || !box) return;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = box.clientWidth * dpr;
-    canvas.height = box.clientHeight * dpr;
+    const { width, height } = box.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR for performance
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
   }
 
   // Initialize Spline Application
@@ -140,15 +141,21 @@
     fallback.classList.add('flex');
   }, 15000);
 
+  // Robust sizing using ResizeObserver
+  const ro = new ResizeObserver(() => syncCanvasSize());
+  ro.observe(box);
+
   app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
     .then(() => {
       clearTimeout(timeout);
       syncCanvasSize();
       
-      // Smooth transition
-      loader.style.opacity = '0';
-      setTimeout(() => loader.classList.add('hidden'), 500);
-      canvas.style.opacity = '1';
+      // Smooth transition - reveal canvas when ready
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.classList.add('hidden'), 500);
+        canvas.style.opacity = '1';
+      }, 500);
     })
     .catch(err => {
       console.error('Spline Runtime Error:', err);
@@ -158,8 +165,7 @@
       fallback.classList.add('flex');
     });
 
-  // Handle responsiveness
-  window.addEventListener('resize', syncCanvasSize);
+  // Initial sync
   syncCanvasSize();
 </script>
 </section>
