@@ -3,6 +3,9 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deep Project - Autonomous Robot</title>
+<!-- Preload Spline Scene for faster load (recommended by Spline Skill) -->
+<link rel="preload" href="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" as="fetch" crossorigin>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -14,6 +17,12 @@
   }
 }
 </script>
+<style>
+  /* Critical Scroll Fix (Spline Skill: Common Problems #1) */
+  body {
+    overflow: auto !important;
+  }
+</style>
 <script id="tailwind-config">tailwind.config = {
             darkMode: "class",
             theme: {
@@ -97,8 +106,17 @@
 </div>
 <div class="lg:col-span-6 mt-24 lg:mt-48">
   <div class="spline-hero-wrapper">
-    <div id="spline-hero-box" style="position: relative; width: 100%; height: 560px; background: #0d0d0d;">
-      <canvas id="canvas3d" style="width: 100%; height: 100%;"></canvas>
+    <div id="spline-hero-box" style="position: relative; width: 100%; height: 560px; background: transparent; contain: strict;">
+      
+      <!-- Fallback shown if Spline fails (Spline Skill: Common Problems #3) -->
+      <div id="spline-fallback" style="position: absolute; inset: 0; background: #0d0d0d; display: flex; align-items: center; justify-content: center; z-index: 0;">
+        <div class="flex flex-col items-center gap-4">
+          <span class="material-symbols-outlined text-primary text-5xl animate-pulse">robot_2</span>
+          <span class="text-primary text-[10px] font-black uppercase tracking-[3px] opacity-60">Loading Robot Arm...</span>
+        </div>
+      </div>
+
+      <canvas id="canvas3d" style="width: 100%; height: 100%; position: relative; z-index: 1; opacity: 0; transition: opacity 0.8s ease;"></canvas>
     </div>
   </div>
 </div>
@@ -107,17 +125,49 @@
   import { Application } from '@splinetool/runtime';
 
   const canvas = document.getElementById('canvas3d');
-  
-  // Ensure the canvas attributes match its CSS size before Spline loads
-  function resize() {
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
+  const fallback = document.getElementById('spline-fallback');
+  const box = document.getElementById('spline-hero-box');
 
+  // 1. Robust sizing logic (Spline Skill: Common Problems #5)
+  function resize() {
+    if (!canvas || !box) return;
+    const { width, height } = box.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+  }
+
+  // Use ResizeObserver for more table resizing
+  const ro = new ResizeObserver(resize);
+  if (box) ro.observe(box);
+
+  // 2. Initialize Application
   const app = new Application(canvas);
-  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode');
+
+  // 3. Timeout fallback (Spline Skill: Common Problems #3)
+  const loadTimeout = setTimeout(() => {
+    console.warn('Spline load timed out');
+    // We keep the fallback visible
+  }, 10000);
+
+  // 4. Load scene
+  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode')
+    .then(() => {
+      clearTimeout(loadTimeout);
+      resize();
+      // Smoothly reveal the canvas and hide fallback
+      canvas.style.opacity = '1';
+      setTimeout(() => {
+        if (fallback) fallback.style.display = 'none';
+      }, 800);
+    })
+    .catch(err => {
+      console.error('Spline Load Error:', err);
+      // Fallback remains visible
+    });
+
+  // Initial resize call
+  resize();
 </script>
 </section>
 <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
