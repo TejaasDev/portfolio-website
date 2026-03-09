@@ -94,9 +94,43 @@
 <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 leading-none" id="dashboard">
                                 /Dashboard & Lab<span class="text-primary">_</span>
 </h1>
-<p class="text-xl font-medium max-w-2xl text-slate-800 border-l-4 border-neo-teal pl-6 py-2">
-                                A curated collection of research notes, autonomous systems prototypes, and architectural drafts from the digital front lines.
-                            </p>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="lg:col-span-7">
+        <p class="text-xl font-medium text-slate-800 border-l-4 border-neo-teal pl-6 py-2 mb-6">
+            A curated collection of research notes, autonomous systems prototypes, and architectural drafts from the digital front lines.
+        </p>
+        <div class="neo-brutalism-card bg-white p-6 mb-8">
+            <h3 class="text-xs font-black uppercase tracking-widest text-primary mb-4">Lab Mandate // 001</h3>
+            <p class="font-bold leading-relaxed text-slate-700">
+                To bridge the gap between biological intent and artificial execution. I focus on building systems that don't just solve problems, but empower humans to solve their own. From autonomous navigation to personalized AI companions, every project in this lab is an experiment in expanding human potential through intelligent architecture.
+            </p>
+        </div>
+    </div>
+    <div class="lg:col-span-5">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="neo-brutalism-card bg-white p-4">
+                <span class="text-[10px] font-black uppercase opacity-50 block mb-1 text-primary">Active Nodes</span>
+                <span class="text-2xl font-black font-mono">1,248</span>
+            </div>
+            <div class="neo-brutalism-card bg-white p-4">
+                <span class="text-[10px] font-black uppercase opacity-50 block mb-1 text-primary">Total Projects</span>
+                <span class="text-2xl font-black font-mono">34</span>
+            </div>
+            <div class="neo-brutalism-card bg-white p-4">
+                <span class="text-[10px] font-black uppercase opacity-50 block mb-1 text-primary">Git Commits</span>
+                <span class="text-2xl font-black font-mono">8,192</span>
+            </div>
+            <div class="neo-brutalism-card bg-white p-4">
+                <span class="text-[10px] font-black uppercase opacity-50 block mb-1 text-primary">Success Rate</span>
+                <span class="text-2xl font-black font-mono">94.2%</span>
+            </div>
+        </div>
+        <div class="mt-6 flex items-center gap-2 p-3 bg-black text-white text-[10px] font-mono uppercase">
+            <span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+            Telemetry Stream: Operational // v2.0.4-LOCKED
+        </div>
+    </div>
+</div>
 </div>
 <!-- Filters -->
 <div class="flex flex-wrap gap-4 mb-10" id="experiments">
@@ -215,28 +249,14 @@
 </main>
 <!-- Footer Stats -->
 <footer class="border-t-4 border-black bg-white p-4 px-10">
-<div class="flex flex-wrap justify-between items-center gap-4">
-<div class="flex gap-8 overflow-x-auto no-scrollbar">
-<div class="flex flex-col">
-<span class="text-[10px] font-black uppercase opacity-50">Active Nodes</span>
-<span class="text-sm font-black font-mono">1,248</span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-black uppercase opacity-50">Total Projects</span>
-<span class="text-sm font-black font-mono">34</span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-black uppercase opacity-50">Git Commits</span>
-<span class="text-sm font-black font-mono">8,192</span>
-</div>
-<div class="flex flex-col">
-<span class="text-[10px] font-black uppercase opacity-50">Success Rate</span>
-<span class="text-sm font-black font-mono">94.2%</span>
-</div>
-</div>
+<div class="flex flex-wrap justify-between items-center gap-4 w-full">
 <div class="text-xs font-black uppercase italic">
                         © 2024 Portfolio Lab // All Rights Reserved
                     </div>
+<div class="flex gap-4">
+    <a href="https://github.com/TejaasDev" target="_blank" class="hover:text-primary transition-colors font-black uppercase text-xs">GitHub</a>
+    <a href="https://www.linkedin.com/in/tejaas-sharma-497b06374" target="_blank" class="hover:text-primary transition-colors font-black uppercase text-xs">LinkedIn</a>
+</div>
 </div>
 </footer>
 </div>
