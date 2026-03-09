@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
 <script id="tailwind-config">tailwind.config = {
             darkMode: "class",
             theme: {
@@ -94,11 +93,19 @@
     <div id="spline-hero-box">
 
       <!-- Spline renders here -->
-      <spline-viewer url="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" events-target="global"></spline-viewer>
+      <canvas id="canvas3d" class="w-full h-full"></canvas>
 
     </div>
   </div>
 </div>
+
+<script type="module">
+  import { Application } from 'https://unpkg.com/@splinetool/runtime@latest/build/runtime.module.js';
+
+  const canvas = document.getElementById('canvas3d');
+  const app = new Application(canvas);
+  app.load('https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode');
+</script>
 </section>
 <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
 <div class="neo-brutalist-border p-8 bg-white dark:bg-slate-900">
