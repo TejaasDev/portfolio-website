@@ -81,14 +81,8 @@
 <span class="text-xs font-mono uppercase">Online / Active</span>
 </div>
 </div>
-<div class="flex flex-col gap-2"><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#"><span class="material-symbols-outlined">dashboard</span>Dashboard</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-primary text-black text-sm font-black uppercase" href="#"><span class="material-symbols-outlined">experiment</span>Experiments</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#"><span class="material-symbols-outlined">menu_book</span>Library</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#"><span class="material-symbols-outlined">settings</span>Settings</a></div>
+<div class="flex flex-col gap-2"><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#dashboard"><span class="material-symbols-outlined">dashboard</span>Dashboard</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-primary text-black text-sm font-black uppercase" href="#experiments"><span class="material-symbols-outlined">experiment</span>Experiments</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#building"><span class="material-symbols-outlined">construction</span>Currently Building</a><a class="flex items-center gap-3 p-3 neo-brutalism-button bg-white text-sm font-black uppercase" href="#thoughts"><span class="material-symbols-outlined">lightbulb</span>Thoughts</a></div>
 <div class="mt-auto pt-10">
-<div class="p-4 border-2 border-dashed border-slate-400 dark:border-slate-600 rounded">
-<p class="text-xs font-mono opacity-60">Storage: 84% Full</p>
-<div class="w-full h-2 bg-slate-200 dark:bg-slate-700 mt-2 rounded-full overflow-hidden">
-<div class="bg-neo-pink h-full w-[84%]"></div>
-</div>
-</div>
 </div>
 </div>
 </aside>
@@ -97,15 +91,15 @@
 <div class="max-w-6xl mx-auto">
 <!-- Header Section -->
 <div class="mb-12">
-<h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 leading-none">
-                                /Lab Experiments<span class="text-primary">_</span>
+<h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 leading-none" id="dashboard">
+                                /Dashboard & Lab<span class="text-primary">_</span>
 </h1>
 <p class="text-xl font-medium max-w-2xl text-slate-800 border-l-4 border-neo-teal pl-6 py-2">
                                 A curated collection of research notes, autonomous systems prototypes, and architectural drafts from the digital front lines.
                             </p>
 </div>
 <!-- Filters -->
-<div class="flex flex-wrap gap-4 mb-10">
+<div class="flex flex-wrap gap-4 mb-10" id="experiments">
 <button class="neo-brutalism-button px-6 py-2 bg-black text-white dark:bg-white dark:text-black font-black uppercase text-sm">All Research</button>
 <button class="neo-brutalism-button px-6 py-2 bg-neo-teal text-black font-black uppercase text-sm">Robotics</button>
 <button class="neo-brutalism-button px-6 py-2 bg-neo-yellow text-black font-black uppercase text-sm">AI Agents</button>
@@ -170,8 +164,38 @@
 <a class="neo-brutalism-button bg-white text-black text-center py-2 font-black uppercase text-sm" href="#">Explore Notebook</a>
 </div>
 </article>
+
+<!-- Currently Building Section -->
+<div class="col-span-1 md:col-span-2 lg:col-span-3 mt-12 mb-8" id="building">
+    <div class="flex items-center gap-4">
+        <h2 class="text-4xl font-black uppercase italic tracking-tighter">Currently Building</h2>
+        <div class="h-1 flex-grow bg-black"></div>
+    </div>
+</div>
+
+<article class="neo-brutalism-card bg-white p-8 relative group">
+    <div class="absolute -top-4 -left-4 bg-primary text-black font-black px-4 py-1 border-2 border-black uppercase text-xs">Active</div>
+    <div class="text-4xl mb-6">🚀</div>
+    <h3 class="text-2xl font-black mb-4 uppercase">Breeze</h3>
+    <p class="font-medium text-slate-700">AI companion helping people build confidence through personalized daily interaction and feedback loops.</p>
+</article>
+
+<article class="neo-brutalism-card bg-white p-8 relative group">
+    <div class="absolute -top-4 -left-4 bg-white text-black font-black px-4 py-1 border-2 border-black uppercase text-xs">Research</div>
+    <div class="text-4xl mb-6">🤖</div>
+    <h3 class="text-2xl font-black mb-4 uppercase">ROS2 + Gazebo</h3>
+    <p class="font-medium text-slate-700">Autonomous robot simulations and navigation systems for complex indoor environments.</p>
+</article>
+
+<article class="neo-brutalism-card bg-white p-8 relative group">
+    <div class="absolute -top-4 -left-4 bg-white text-black font-black px-4 py-1 border-2 border-black uppercase text-xs">Tooling</div>
+    <div class="text-4xl mb-6">⚙</div>
+    <h3 class="text-2xl font-black mb-4 uppercase">Automation Agents</h3>
+    <p class="font-medium text-slate-700">Specialized LLM-powered tools for optimizing coding workflows and automating tasks.</p>
+</article>
+
 <!-- Card 5 (Featured Note) -->
-<article class="neo-brutalism-card bg-neo-yellow text-black md:col-span-2 flex flex-col md:flex-row overflow-hidden">
+<article class="neo-brutalism-card bg-neo-yellow text-black md:col-span-2 flex flex-col md:flex-row overflow-hidden" id="thoughts">
 <div class="md:w-2/5 h-64 md:h-auto border-b-3 md:border-b-0 md:border-r-3 border-black bg-white overflow-hidden">
 <img class="w-full h-full object-cover" data-alt="Futuristic interface with glowing human-like avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6-NdR8_HhfC6ztHFwZMO_2BTfRtE55f7SEVvnyo3fweyh9aQs1tLLPQg9tluxdP8VYkIhUV-pavOSf7vU572PAB6MJnDcyvAFjLUgm774dtwON2Vz54kk6XCZ-RXXIuSUq3XfAJQkP39cmnAj2aB2UowpR5qEwaubL1f1WGDOcPEbv1EEElMKVsHDxQirqpuwNwOySB2lXrqLr2tuu9cX9qKzAq9AhYhGvFOzaHnGH59yZUzO-q6LtndCLbIv8pzAurWncjzrtpd9"/>
 </div>
