@@ -49,22 +49,9 @@
             overflow: hidden;
         }
 
-        /* Orange glow pulse border */
+        /* Orange glow pulse border removed */
         .spline-hero-wrapper {
             position: relative;
-        }
-        .spline-hero-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            box-shadow: 0 0 0 4px #000, 0 0 40px 0px rgba(242,112,13,0.35);
-            pointer-events: none;
-            animation: glowPulse 3s ease-in-out infinite;
-            z-index: 10;
-        }
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 0 4px #000, 0 0 30px 0px rgba(242,112,13,0.25); }
-            50%       { box-shadow: 0 0 0 4px #000, 0 0 55px 5px rgba(242,112,13,0.55); }
         }
     </style>
 </head>
@@ -102,9 +89,9 @@
                         Navigating complexity with ROS 2 Jazzy and Gazebo Harmonic simulation environments.
                     </p>
 </div>
-<div class="lg:col-span-6 mt-12 lg:mt-24">
+<div class="lg:col-span-6 mt-24 lg:mt-48">
   <div class="spline-hero-wrapper">
-    <div class="neo-brutalist-border" id="spline-hero-box">
+    <div id="spline-hero-box">
 
       <!-- Spline renders here -->
       <spline-viewer url="https://prod.spline.design/TnZjs40K1y6TGJs3/scene.splinecode" events-target="global"></spline-viewer>
